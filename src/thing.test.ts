@@ -7,6 +7,11 @@ function replaceThing(node: AST.Node, from: string, to: string): void {
 }
 
 describe('thingy', function () {
+    test('Escape quotes properly when changing string values', function () {
+      let ast = parse(`{{helper 'val'}}`) as any;
+      ast.body[0].params[0].value = "aaron's house";
+      expect(print(ast)).toEqual(``);
+    });
     test('Escape string literals when changing quote type', function () {
       let ast = parse(`{{helper "aaron's house"}}`) as any;
       ast.body[0].params[0].quoteType = "'";
